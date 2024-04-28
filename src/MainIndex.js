@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import RouterIndex from './app/routes/rootRoute';
-import {MenuProvider} from 'react-native-popup-menu';
+import {AppProvider} from './app/wrappers/app.wrapper';
 const MainIndex = () => {
   return (
     <NavigationContainer>
-      <MenuProvider>
+      <AppProvider>
         <RouterIndex />
-      </MenuProvider>
+      </AppProvider>
     </NavigationContainer>
   );
 };
