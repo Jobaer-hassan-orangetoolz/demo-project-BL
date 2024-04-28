@@ -14,7 +14,11 @@ const RouterIndex = () => {
         component={Splash}
         options={{headerShown: false}}
       />
-      <stack.Screen name={routeName.login} component={LoginIndex} />
+      <stack.Screen
+        name={routeName.login}
+        component={LoginIndex}
+        options={{headerShown: false}}
+      />
       <stack.Screen name={routeName.dashboard} component={DashboardIndex} />
       <stack.Screen
         name={routeName.registration}

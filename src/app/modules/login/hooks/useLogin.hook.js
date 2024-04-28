@@ -29,8 +29,10 @@ const useLogin = () => {
         body: 'Please fill up the login form correctly',
       });
     }
+    setLoading(true);
     if (email === 'admin@batterylow') {
       if (password === 'admin') {
+        setLoading(false);
         navigation.replace(routeName.dashboard, {role: 'admin'});
       }
     } else {
@@ -41,9 +43,11 @@ const useLogin = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
+        setLoading(false);
         navigation.replace(routeName.dashboard, {role: 'user'});
       })
       .catch(err => {
+        setLoading(false);
         return showAlertWithOneAction({
           title: 'something went wrong',
           body: 'Wrong Credential',

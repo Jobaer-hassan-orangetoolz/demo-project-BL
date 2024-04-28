@@ -19,9 +19,15 @@ const AppProvider = ({children}) => {
   //       console.error('Error requesting notification permission:', error);
   //     }
   //   }
+  const notifeeEventListener = async () => {
+    notifee.onForegroundEvent(async ({type, detail}) => {});
+    notifee.onBackgroundEvent(async ({type, detail}) => {});
+  };
   async function subscribeUsersToTopic() {
-    await firebase.messaging().subscribeToTopic('notification');
+    await firebase.messaging().subscribeToTopic('newNotificationTopic');
+    notifeeEventListener();
   }
+
   const displayNotification = async remoteMessage => {
     const channelId = await notifee.createChannel({
       id: 'default',
@@ -43,7 +49,6 @@ const AppProvider = ({children}) => {
   useEffect(() => {
     subscribeUsersToTopic();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      //   Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
       await displayNotification(remoteMessage);
     });
     return unsubscribe;

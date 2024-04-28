@@ -1,5 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {ActivityIndicator, Button, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {showAlertWithOneAction} from '../../utilities/helper.utilities';
@@ -45,21 +54,57 @@ const RegistrationIndex = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      {isLoading && <ActivityIndicator size={'large'} />}
+
       <TextInput
         placeholder="Email"
-        value={email}
         onChangeText={handleChangeEmail}
+        defaultValue={email}
+        style={styles.input}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="Password"
-        secureTextEntry
-        value={password}
         onChangeText={handleChangePassword}
+        defaultValue={password}
+        secureTextEntry={true}
+        style={styles.input}
+        autoCapitalize="none"
       />
-      <Button title="Register" onPress={handleRegister} />
-      {isLoading && <ActivityIndicator size={'large'} />}
+      <TouchableOpacity
+        onPress={handleRegister}
+        style={{
+          padding: 10,
+          borderWidth: 1,
+          borderColor: 'black',
+          width: 200,
+          borderRadius: 20,
+          backgroundColor: 'indigo',
+          marginBottom: 20,
+        }}>
+        <Text style={{fontSize: 18, textAlign: 'center', color: 'white'}}>
+          Register
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
 export default RegistrationIndex;
+const styles = StyleSheet.create({
+  input: {
+    width: '80%',
+    marginBottom: 15,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
