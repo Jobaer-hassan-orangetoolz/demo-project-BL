@@ -1,0 +1,9 @@
+jks :
+alice: key0
+pass: jobaer
+first and last name: jobaer hassan
+app dev
+Batterylow
+dhaka
+dhaka
+BD
