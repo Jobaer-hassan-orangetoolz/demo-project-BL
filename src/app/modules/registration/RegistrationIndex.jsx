@@ -11,11 +11,15 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {showAlertWithOneAction} from '../../utilities/helper.utilities';
+import {
+  isEmpty,
+  showAlertWithOneAction,
+} from '../../utilities/helper.utilities';
 
 const RegistrationIndex = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmpassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
   const [isLoading, setLoading] = useState(false);
   const handleChangeEmail = text => {
@@ -25,6 +29,19 @@ const RegistrationIndex = () => {
     setPassword(text);
   };
   const handleRegister = async () => {
+    //validation part
+    if (isEmpty(email) || isEmpty(password) || isEmpty(confirmpassword)) {
+      return showAlertWithOneAction({
+        title: 'something went wrong',
+        body: 'Please fill up the registration form correctly',
+      });
+    }
+    if (confirmpassword !== password) {
+      return showAlertWithOneAction({
+        title: 'something went wrong',
+        body: 'password and confirm password must be same',
+      });
+    }
     setLoading(true);
     auth()
       .createUserWithEmailAndPassword(email, password)
@@ -68,6 +85,14 @@ const RegistrationIndex = () => {
         placeholder="Password"
         onChangeText={handleChangePassword}
         defaultValue={password}
+        secureTextEntry={true}
+        style={styles.input}
+        autoCapitalize="none"
+      />
+      <TextInput
+        placeholder="Confirm Password"
+        onChangeText={t => setConfirmPassword(t)}
+        defaultValue={confirmpassword}
         secureTextEntry={true}
         style={styles.input}
         autoCapitalize="none"

@@ -7,8 +7,6 @@ import {
   isEmpty,
   showAlertWithOneAction,
 } from '../../../utilities/helper.utilities';
-//for admin -->  user: admin@batterylow pass: admin
-//for user  -->  user: user@batterylow  pass: user
 
 const useLogin = () => {
   const [isLoading, setLoading] = useState(false);
@@ -21,7 +19,6 @@ const useLogin = () => {
   const handleChangePassword = text => {
     setPassword(text);
   };
-  const toggleEyeOff = () => {};
   const handleSubmit = () => {
     if (isEmpty(email) || isEmpty(password)) {
       return showAlertWithOneAction({
